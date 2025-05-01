@@ -21,7 +21,7 @@ export const registerUser = async (req, res) => {
     // Encriptar la contraseña
     const hashedPassword = await encrypt(password);
 
-    // Crear usuario con CLIENT_ROLE por defecto
+    // Crear usuario con CLIENT por defecto
     const newUser = new User({
       name,
       surname,
@@ -29,7 +29,7 @@ export const registerUser = async (req, res) => {
       email,
       password: hashedPassword,
       phone,
-      role: "CLIENT_ROLE",
+      role: "CLIENT",
     });
 
     await newUser.save();
