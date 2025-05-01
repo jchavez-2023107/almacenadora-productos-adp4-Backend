@@ -55,3 +55,66 @@ export const validateJWT = async (req, res, next) => {
     return res.status(401).json({ message: "Invalid token" });
   }
 };
+
+export const isAdmin = async(req, res, next) =>{
+  try{
+      const {user} = req
+      if(!user || user.role !== 'Admin') return res.status(403).send(
+          {
+              success: false,
+              message: `You dont have access ${user.username}`
+          }
+      )
+      next()
+  }catch(e){
+      console.error(e)
+      return res.status(403).send(
+          {
+              success: false,
+              message: 'Error with authorization'
+          }
+      )
+  }
+}
+
+export const isEmployee = async(req, res, next) =>{
+  try{
+      const {user} = req
+      if(!user || user.role !== 'Employee') return res.status(403).send(
+          {
+              success: false,
+              message: `You dont have access ${user.username}`
+          }
+      )
+      next()
+  }catch(e){
+      console.error(e)
+      return res.status(403).send(
+          {
+              success: false,
+              message: 'Error with authorization'
+          }
+      )
+  }
+}
+
+export const isCLIENT = async(req, res, next) =>{
+  try{
+      const {user} = req
+      if(!user || user.role !== 'CLIENT') return res.status(403).send(
+          {
+              success: false,
+              message: `You dont have access ${user.username}`
+          }
+      )
+      next()
+  }catch(e){
+      console.error(e)
+      return res.status(403).send(
+          {
+              success: false,
+              message: 'Error with authorization'
+          }
+      )
+  }
+}

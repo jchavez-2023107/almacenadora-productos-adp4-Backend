@@ -16,6 +16,7 @@ import { limiter } from "../middlewares/rate.limit.js";
 // limiter es un middleware que hicimos para evitar los ataques de fuerza bruta.
 import { rutasGenerales } from "../src/rutas.generales.js"; // Importación de rutas principales
 
+
 /*
  * Función para configurar middlewares globales.
  */
