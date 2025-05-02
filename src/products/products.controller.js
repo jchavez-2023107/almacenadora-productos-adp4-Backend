@@ -1,4 +1,6 @@
 import Product from '../products/products.model.js'
+import User from '../users/user.model.js'
+import { checkPassword } from '../../utils/encrypt.js'
 
 export const addProduct = async(req, res) =>{
     try{
@@ -6,7 +8,16 @@ export const addProduct = async(req, res) =>{
         let product = new Product(data)
 
         await product.save()
-        return res.send({message: 'Product save'})
+        const newProduct = await Product.findById(product._id)
+            .populate('category')
+            .populate('supplier')
+
+        return res.send(
+            {
+                message: 'Product save',
+                product: newProduct
+            }
+        )
 
     }catch(e){
         console.error(e)
@@ -16,23 +27,25 @@ export const addProduct = async(req, res) =>{
 
 export const getProduct = async(req, res) =>{
     try{
-        const {limit = 20, skip = 0, name, category, dateDelivery} = req.query
+        const {limit = 20, skip = 0, name, category, dateDelivery, sort} = req.query
 
         let filter = {}
+        if(name) filter.name = name
+        if(category) filter.category = category
+        if(dateDelivery) filter.dateDelivery = dateDelivery
 
-        if(name){
-            filter.name = name
-        }
-        if(category){
-            filter.category = category
-        }
-        if(dateDelivery){
-            filter.dateDelivery = dateDelivery
-        }
+        let sortOption = {}
+
+        if(sort === 'asc')sortOption.name = 1
+        else if (sort === 'desc') sortOption.name = -1
+
 
         const product = await Product.find(filter)
             .skip(skip)
             .limit(limit)
+            .sort(sortOption)
+            .populate('category')
+            .populate('supplier')
 
         if(product.length === 0){
             return res.status(404).send(
@@ -62,10 +75,18 @@ export const updateProd = async(req, res) =>{
 
         const updateProd = await Product.findByIdAndUpdate(
             id,
-            data,
+            {
+                name: data.name,
+                price: data.price,
+                description: data.description,
+                stock: data.stock,
+                dateDelivery: data.dateDelivery
+            },
             {new: true}
         )
-
+        .populate('category')
+        .populate('supplier')
+        
         if(!updateProd) return res.status(404).send(
             {
                 success: false,
@@ -88,7 +109,7 @@ export const updateProd = async(req, res) =>{
 export const deleteProd = async(req, res) => {
     try{
         let {id} = req.params
-
+        
         const product = await Product.findById(id)
         if(!product) return res.status(404).send(
             {

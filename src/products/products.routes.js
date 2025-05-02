@@ -4,9 +4,9 @@ import { getProduct, addProduct, updateProd, deleteProd } from "./products.contr
 
 const api = Router()
 
-api.post('/addProduct', addProduct)
-api.get('/getProduct', getProduct)
-api.put('/updateProd/:id', updateProd)
-api.delete('/deleteProd/:id', deleteProd)
+api.post('/addProduct', [validateJWT, isAdmin],addProduct)
+api.get('/getProduct', [validateJWT, isAdmin], getProduct)
+api.put('/updateProd/:id', [validateJWT, isAdmin], updateProd)
+api.delete('/deleteProd/:id', [validateJWT, isAdmin], deleteProd)
 
 export default api

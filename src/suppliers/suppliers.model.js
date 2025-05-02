@@ -28,7 +28,7 @@ const supplierSchema = Schema(
     },
     {
         versionKey: false,
-        timestamps: true 
+        timestamps: false 
     }
 )
 
