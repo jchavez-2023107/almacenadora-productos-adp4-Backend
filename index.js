@@ -7,8 +7,12 @@ import { connectDB } from "./configs/mongo.js"; // Conexión a la base de datos
 
 //Agregar los datos por defectos en un futuro
 /* import { agregarUsuariosPorDefecto } from "./src/users/user.controller.js";
-import { agregarClientesPorDefecto } from "./src/clients/client.controller.js";
-import { agregarProductosPorDefecto } from "./src/products/product.controller.js"; */
+import { agregarClientesPorDefecto } from "./src/clients/client.controller.js";*/
+import { createDefaultCategories } from "./src/category/category.default.js";
+import { createDefaultProducts } from "./src/products/products.default.js";
+createDefaultProducts()
+createDefaultCategories()
+
 
 import { initServer } from "./configs/app.js"; // Inicialización del servidor Express
 
@@ -33,3 +37,4 @@ import { initServer } from "./configs/app.js"; // Inicialización del servidor E
     process.exit(1); // Cerrar la aplicación si hay un error crítico
   }
 })();
+

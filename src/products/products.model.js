@@ -12,6 +12,11 @@ const productSchema = Schema(
             type: String,
             required: true
         },
+        description: {
+            type: String,
+            maxLength: 150,
+            required: true
+        },
         stock: {
             type: String,
             required: true
@@ -33,7 +38,7 @@ const productSchema = Schema(
     },
     {
         versionKey: false,
-        timestamps: true 
+        timestamps: false 
     }
 )
 

@@ -1,10 +1,10 @@
 import { Router } from "express"
-import { validateJWT } from "../../middlewares/validate.jwt.js"
+import { isAdmin, validateJWT } from "../../middlewares/validate.jwt.js"
 import { addSupplier, updateSupp } from "./suppliers.controller.js"
 
 const api = Router()
 
-api.post('/addSupplier', addSupplier)
-api.put('/updateSupp/:id', updateSupp)
+api.post('/addSupplier', [validateJWT, isAdmin], addSupplier)
+api.put('/updateSupp/:id', [validateJWT, isAdmin], updateSupp)
 
 export default api
