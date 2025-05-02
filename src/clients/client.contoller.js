@@ -74,3 +74,44 @@ export const deleteClient = async (req, res) => {
         res.status(500).json({message: "Error deleting client"});
     }
 }
+
+/**
+ * Agregar clientes por defecto
+ */
+export const addDefaultClients = async () => {
+    const total = await Clients.countDocuments();
+    if (total === 0) {
+      const defaultClients = [
+        {
+          name: "Empresa Logística Lima SAC",
+          contact: "empresaLogi@gmail.com",
+          company: "Empresa Logística Lima SAC",
+          product: "Cajas de cartón",
+          phone: "+502 98765432"
+        },
+        {
+          name: "Distribuciones del Norte SRL",
+          contact: "distribuiDelNorte@gmail.com",
+          company: "Distribuciones del Norte SRL",
+          product: "Palets plásticos",
+          phone: "+502 91234567"
+        },
+        {
+          name: "Transportes Andes EIRL",
+          contact: "transportesAndre@gmail.com",
+          company: "Transportes Andes EIRL",
+          product: "Contenedores metálicos",
+          phone: "+502 92345678"
+        }
+      ];
+  
+      try {
+        await Clients.insertMany(defaultClients);
+        console.log("Clientes por defecto agregados");
+      } catch (error) {
+        console.error("Error al agregar clientes por defecto:", error);
+      }
+    } else {
+      console.log("Ya existen clientes en la base de datos.");
+    }
+  };

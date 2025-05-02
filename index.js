@@ -6,6 +6,8 @@ dotenv.config(); // Cargar variables de entorno desde .env
 import { connectDB } from "./configs/mongo.js"; // Conexión a la base de datos
 
 //Agregar los datos por defectos en un futuro
+import { addDefaultClients } from "./src/clients/client.contoller.js";
+import { addDefaultSuppliers } from "./src/suppliers/suppliers.controller.js";
 /* import { agregarUsuariosPorDefecto } from "./src/users/user.controller.js";
 import { agregarClientesPorDefecto } from "./src/clients/client.controller.js";
 import { agregarProductosPorDefecto } from "./src/products/product.controller.js"; */
@@ -19,6 +21,8 @@ import { initServer } from "./configs/app.js"; // Inicialización del servidor E
 
 
     // Espacio para llamar asíncronamente a los datos por defecto
+    await addDefaultClients();
+    await addDefaultSuppliers();
     /* await agregarUsuariosPorDefecto();
     await agregarClientesPorDefecto();
     await agregarProductosPorDefecto(); */

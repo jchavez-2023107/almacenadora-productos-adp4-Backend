@@ -8,7 +8,7 @@ const supplierSchema = Schema(
             unique: true,
             required: true
         },
-        adress: {
+        address: {
             type: String,
             maxLength: 150,
             required: true

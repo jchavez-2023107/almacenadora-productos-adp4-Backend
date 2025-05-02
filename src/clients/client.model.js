@@ -6,13 +6,13 @@ const clientSchema = new mongoose.Schema(
             type: String, 
             require: [true, "El nombre es obligatorio"],
         },
-        contact:{
+        email:{
             type: String, 
-            require: [true, "El contacto es obligatorio"],
+            require: [true, "El email es obligatorio"],
             unique: true,
             lowercase: true,
             trim: true,
-            match: [/^\S+@\S+\.\S+$/, "Debe ser un contacto válido"],
+            match: [/^\S+@\S+\.\S+$/, "Debe ser un email válido"],
         },
         company:{
             type: String, 

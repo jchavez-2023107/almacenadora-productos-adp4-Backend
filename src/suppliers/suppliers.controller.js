@@ -79,3 +79,42 @@ export const deleteSuppliers = async (req, res) => {
       res.status(500).json({ message: "Error deleting supplier", error: error.message });
     }
   };
+
+
+  /**
+   *  Default Suppliers 
+   */
+  export const addDefaultSuppliers = async () => {
+    const total = await Supplier.countDocuments();
+    if (total === 0) {
+      const defaultSuppliers = [
+        {
+          name: 'Distribuidora Central',
+          address: 'Av. Principal #123, Ciudad Capital',
+          email: 'central@proveedores.com',
+          phone: '555-123-4567'
+        },
+        {
+          name: 'Suministros del Norte',
+          address: 'Calle Norte 45, Ciudad Norte',
+          email: 'norte@proveedores.com',
+          phone: '555-987-6543'
+        },
+        {
+          name: 'Grupo Industrial Sur',
+          address: 'Zona Industrial Sur, Km 12',
+          email: 'sur@proveedores.com',
+          phone: '555-456-7890'
+        }
+      ];
+  
+      try {
+        await Supplier.insertMany(defaultSuppliers);
+        console.log('Proveedores por defecto agregados');
+      } catch (error) {
+        console.error('Error al agregar proveedores por defecto:', error);
+      }
+    } else {
+      console.log('Ya existen proveedores en la base de datos.');
+    }
+  };
