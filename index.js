@@ -10,14 +10,15 @@ import { connectDB } from "./configs/mongo.js"; // Conexión a la base de datos
 import { agregarClientesPorDefecto } from "./src/clients/client.controller.js";*/
 import { createDefaultCategories } from "./src/category/category.default.js";
 import { createDefaultProducts } from "./src/products/products.default.js";
-createDefaultProducts()
-createDefaultCategories()
-
-
+import { createDefaultSupplier } from "./src/suppliers/suppliers.default.js";
 import { initServer } from "./configs/app.js"; // Inicialización del servidor Express
 
+createDefaultProducts()
+createDefaultCategories()
+createDefaultSupplier()
+
 // Iniciar conexión a MongoDB
-(async () => {
+ (async () => {
   try {
     await connectDB(); // Esperar a que la base de datos se conecte antes de levantar el servidor
 
