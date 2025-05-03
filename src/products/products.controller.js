@@ -1,6 +1,7 @@
 import Product from '../products/products.model.js'
 import User from '../users/user.model.js'
 import { checkPassword } from '../../utils/encrypt.js'
+import mongoose from 'mongoose'
 
 export const addProduct = async(req, res) =>{
     try{
@@ -30,9 +31,29 @@ export const getProduct = async(req, res) =>{
         const {limit = 20, skip = 0, name, category, dateDelivery, sort} = req.query
 
         let filter = {}
-        if(name) filter.name = name
-        if(category) filter.category = category
-        if(dateDelivery) filter.dateDelivery = dateDelivery
+
+        if(name) 
+            filter.name = {$regex: name, $options: 'i'}
+
+        if(category){
+            if(!mongoose.Types.ObjectId.isValid(category)) return res.status(400).send(
+                {
+                    success: false,
+                    message: 'Categoria no valida'
+                }
+            )
+            filter.category = category
+        }
+
+        if(dateDelivery){
+            if(isNaN(Date.parse(dateDelivery))) return res.status(400).send(
+                {
+                    success: false,
+                    message: 'Formato o fecha no valida. (use YYYY-MM-DD)'
+                }
+            )
+            filter.dateDelivery = new Date(dateDelivery)
+        }
 
         let sortOption = {}
 
@@ -48,12 +69,19 @@ export const getProduct = async(req, res) =>{
             .populate('supplier')
 
         if(product.length === 0){
-            return res.status(404).send(
-                {
-                    success: false,
-                    message: 'Product not found'
-                }
-            )
+           const hasFilters = Object.keys(filter).length > 0
+
+           return res.status(404).send(
+            {
+                success: false,
+                message: hasFilters ? 'No se han encontrado productos con los filtros proporcionados'
+                    : 'o filtros ha implementado mal los filtros',
+                suggestions: hasFilters ? [
+                    'Intente con filtros de búsqueda diferentes',
+                    'o Consulte el catálogo completo sin filtros'
+                ] : []
+            }
+           )
         }
         return res.send(
             {

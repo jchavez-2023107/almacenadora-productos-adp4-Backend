@@ -113,13 +113,19 @@
 					"name": "add",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE2NTc1MWVkMDAyZjRiOTdmZDMwYTkiLCJ1c2VybmFtZSI6InBwYWxhY2lvcyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjI5NDc5NCwiZXhwIjoxNzQ2MzA1NTk0fQ.yQ19tFO6BgmUZ8cVwTFGnsd32rCNWyYljFWwQ3ifkkw",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "Nike Pro ",
+									"value": "Nike Pro6",
 									"type": "text"
 								},
 								{
@@ -134,17 +140,22 @@
 								},
 								{
 									"key": "dateDelivery",
-									"value": "2025-04-30",
+									"value": "2025-05-03",
 									"type": "text"
 								},
 								{
 									"key": "supplier",
-									"value": "681363dfc00e434a32880a7b",
+									"value": "68143f71d08a7846432d10f4",
 									"type": "text"
 								},
 								{
 									"key": "category",
-									"value": "6813655f849809f17303f290",
+									"value": "68143f98d08a7846432d10f7",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Calzado Nike deportivo. Nike Pro blanco modelo jordan",
 									"type": "text"
 								}
 							]
@@ -168,9 +179,15 @@
 					"name": "Get",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE2NTc1MWVkMDAyZjRiOTdmZDMwYTkiLCJ1c2VybmFtZSI6InBwYWxhY2lvcyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjMwNTYxMiwiZXhwIjoxNzQ2MzE2NDEyfQ.odam06iiqNaTfXe-gAv-jR0TZksxj4gwBWF-OzlTvPs",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "localhost:2636/api/products/getProduct?&category=6813655f849809f17303f290",
+							"raw": "localhost:2636/api/products/getProduct?&name=l",
 							"host": [
 								"localhost"
 							],
@@ -186,8 +203,8 @@
 									"value": null
 								},
 								{
-									"key": "category",
-									"value": "6813655f849809f17303f290"
+									"key": "name",
+									"value": "l"
 								}
 							]
 						}
@@ -198,24 +215,43 @@
 					"name": "upDate",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE2NTc1MWVkMDAyZjRiOTdmZDMwYTkiLCJ1c2VybmFtZSI6InBwYWxhY2lvcyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjI5NDc5NCwiZXhwIjoxNzQ2MzA1NTk0fQ.yQ19tFO6BgmUZ8cVwTFGnsd32rCNWyYljFWwQ3ifkkw",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
 									"key": "name",
 									"value": "Nike 3 Pro",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "stock",
 									"value": "300",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "68144140d08a7846432d1107",
 									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "20",
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:2636/api/products/updateProd/681366ee7497ed51a715d1d2",
+							"raw": "localhost:2636/api/products/updateProd/68164d82f382191b58345582",
 							"host": [
 								"localhost"
 							],
@@ -224,7 +260,7 @@
 								"api",
 								"products",
 								"updateProd",
-								"681366ee7497ed51a715d1d2"
+								"68164d82f382191b58345582"
 							]
 						}
 					},
@@ -234,9 +270,25 @@
 					"name": "Delete",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE2NTc1MWVkMDAyZjRiOTdmZDMwYTkiLCJ1c2VybmFtZSI6InBwYWxhY2lvcyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjI5NDc5NCwiZXhwIjoxNzQ2MzA1NTk0fQ.yQ19tFO6BgmUZ8cVwTFGnsd32rCNWyYljFWwQ3ifkkw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "confirm",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
-							"raw": "localhost:2636/api/products/deleteProd/681366ee7497ed51a715d1d2",
+							"raw": "localhost:2636/api/products/deleteProd/6816609811a35efc3d563fca",
 							"host": [
 								"localhost"
 							],
@@ -245,7 +297,7 @@
 								"api",
 								"products",
 								"deleteProd",
-								"681366ee7497ed51a715d1d2"
+								"6816609811a35efc3d563fca"
 							]
 						}
 					},
@@ -262,10 +314,9 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODEzNTZiNTE0M2ViNTM2YWMyMGQ1OGMiLCJ1c2VybmFtZSI6InBwYWxhY2lvcyIsInJvbGUiOiJDTElFTlQiLCJpYXQiOjE3NDYwOTgxOTIsImV4cCI6MTc0NjEwODk5Mn0.xZEABEsKMCNH8VfmCj8r6TxgCBJtzqOAYpvHGJmpJQQ",
-								"type": "text",
-								"disabled": true
+								"key": "authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE0M2YzN2QwOGE3ODQ2NDMyZDEwZjAiLCJ1c2VybmFtZSI6InBwYWxhY2lvcyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjE1NzM3OCwiZXhwIjoxNzQ2MTY4MTc4fQ.Ed7RoQmLZWu3N1KSrfQ6fksKDUyx2Ny51cl60clSlBI",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -348,18 +399,24 @@
 					"name": "add",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE2NTc1MWVkMDAyZjRiOTdmZDMwYTkiLCJ1c2VybmFtZSI6InBwYWxhY2lvcyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjMwNTYxMiwiZXhwIjoxNzQ2MzE2NDEyfQ.odam06iiqNaTfXe-gAv-jR0TZksxj4gwBWF-OzlTvPs",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "Calzado",
+									"value": "Calzado2",
 									"type": "text"
 								},
 								{
 									"key": "description",
-									"value": "Calzado Deportivo",
+									"value": "Calzado Deportivo 2",
 									"type": "text"
 								}
 							]
