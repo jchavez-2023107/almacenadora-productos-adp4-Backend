@@ -1,58 +1,35 @@
 import Movement from '../movements/movement.model.js'
 import Product from '../products/products.model.js'
-import mongoose from 'mongoose'
 
 export const addMovement = async (req, res) => {
     try {
-        const data = req.body
-        const { product: productId, type, quantity } = data
+        const { product: productId, type, quantity } = req.body
 
         const product = await Product.findById(productId)
-        if (!product) {
-            return res.status(404).send(
-              { 
-                message: 'Product not found' 
-              }
-            )
-        }
+        if (!product) return res.status(404).send({ message: 'Product not found' })
 
         if (type === 'entrada') {
             product.stock += quantity
         } else if (type === 'salida') {
             if (product.stock < quantity) {
-                return res.status(400).send(
-                  { 
-                    message: 'Insufficient stock' 
-                  }
-                )
+                return res.status(400).send({ message: 'Insufficient stock' })
             }
             product.stock -= quantity
         } else {
-            return res.status(400).send(
-              { 
-                message: 'Invalid movement type' 
-              }
-            )
+            return res.status(400).send({ message: 'Invalid movement type' })
         }
 
-        const movement = new Movement(data)
-        await movement.save()
         await product.save()
 
-        return res.send(
-          { 
-            message: 'Movement saved successfully' 
-          }
-        )
+        const movement = new Movement(req.body)
+        await movement.save()
+
+        return res.send({ message: 'Movement saved successfully' })
     } catch (err) {
         console.error(err)
-        return res.status(500).send(
-          { 
-            message: 'Error adding movement' }
-        )
+        return res.status(500).send({ message: 'Error adding movement' })
     }
 }
-
 
 export const getMovements = async (req, res) => {
     try {
@@ -156,98 +133,75 @@ export const getInventoryMovementsReport = async (req, res) => {
 
 export const updateMovement = async (req, res) => {
     try {
-        const { id } = req.params 
-        const data = req.body
+        const { id } = req.params
+        const newData = req.body
 
-        const updated = await Movement.findByIdAndUpdate(id, data, { new: true })
-
-        if (!updated) {
-            return res.status(404).send(
-                {
-                    success: false,
-                    message: 'Movement not found'
-                }
-            )
+        const existing = await Movement.findById(id)
+        if (!existing) {
+            return res.status(404).send({ success: false, message: 'Movement not found' })
         }
 
-        return res.send(
-            {
-                success: true,
-                message: 'Movement updated',
-                movement: updated
-            }
-        )
+        const product = await Product.findById(existing.product)
+        if (!product) {
+            return res.status(404).send({ message: 'Product not found for this movement' })
+        }
 
+        // Revert the previous movement effect
+        if (existing.type === 'entrada') {
+            product.stock -= existing.quantity
+        } else if (existing.type === 'salida') {
+            product.stock += existing.quantity
+        }
+
+        // Apply the new movement effect
+        if (newData.type === 'entrada') {
+            product.stock += newData.quantity
+        } else if (newData.type === 'salida') {
+            if (product.stock < newData.quantity) {
+                return res.status(400).send({ message: 'Insufficient stock for updated movement' })
+            }
+            product.stock -= newData.quantity
+        }
+
+        await product.save()
+        const updated = await Movement.findByIdAndUpdate(id, newData, { new: true })
+
+        return res.send({ success: true, message: 'Movement updated', movement: updated })
     } catch (err) {
         console.error(err)
-        return res.status(500).send(
-            {
-                message: 'General error updateMovement'
-            }
-        )
+        return res.status(500).send({ message: 'Error updating movement' })
     }
 }
 
 export const deleteMovement = async (req, res) => {
-    const session = await mongoose.startSession()
-    session.startTransaction()
     try {
         const { id } = req.params
-        const movement = await Movement.findById(id).session(session)
+        const movement = await Movement.findById(id)
 
         if (!movement) {
-            await session.abortTransaction()
-            return res.status(404).send(
-              { 
-                message: 'Movement not found' 
-              }
-            )
+            return res.status(404).send({ message: 'Movement not found' })
         }
 
-        const product = await Product.findById(movement.product).session(session)
+        const product = await Product.findById(movement.product)
         if (!product) {
-            await session.abortTransaction()
-            return res.status(404).send(
-              { 
-                message: 'Product not found for this movement' 
-              }
-            )
+            return res.status(404).send({ message: 'Product not found for this movement' })
         }
 
         if (movement.type === 'entrada') {
             if (product.stock < movement.quantity) {
-                await session.abortTransaction()
-                return res.status(400).send(
-                  { 
-                    message: 'Cannot delete movement, would result in negative stock' 
-                  }
-                )
+                return res.status(400).send({ message: 'Cannot delete movement, stock would go negative' })
             }
             product.stock -= movement.quantity
         } else if (movement.type === 'salida') {
             product.stock += movement.quantity
         }
 
-        await Movement.deleteOne({ _id: id }, { session })
-        await product.save({ session })
+        await product.save()
+        await Movement.findByIdAndDelete(id)
 
-        await session.commitTransaction()
-        session.endSession()
-
-        return res.send(
-          { 
-            message: 'Movement deleted and stock updated' 
-          }
-        )
-
+        return res.send({ message: 'Movement deleted and stock updated' })
     } catch (err) {
-        await session.abortTransaction()
-        session.endSession()
         console.error(err)
-        return res.status(500).send(
-          { 
-            message: 'Error deleting movement'
-          }
-        )
+        return res.status(500).send({ message: 'Error deleting movement' })
     }
 }
