@@ -1,0 +1,38 @@
+{
+  "name": "almacenadora-productos-adp4",
+  "version": "1.0.0",
+  "description": "## Descripción   Aplicación web Full-Stack MERN para gestionar el inventario de una almacenadora:   - CRUD de productos   - Control de entradas y salidas   - Gestión de proveedores y clientes   - Informes y estadísticas   - Roles, permisos y alertas",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jchavez-2023107/almacenadora-productos-adp4-Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jchavez-2023107/almacenadora-productos-adp4-Backend/issues"
+  },
+  "homepage": "https://github.com/jchavez-2023107/almacenadora-productos-adp4-Backend#readme",
+  "dependencies": {
+    "argon2": "^0.43.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.14.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
