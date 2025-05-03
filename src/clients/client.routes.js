@@ -6,12 +6,14 @@ import{
     updateClient,
     deleteClient,
 }from "./client.contoller.js";
+import { validateJWT,isCLIENT } from "../../middlewares/validate.jwt.js";
+
 
 const api = Router();
 
-api.post("/", createClient)
-api.get ("/", getClient)
-api.put("/:id", updateClient)
-api.delete("/:id",deleteClient)
+api.post("/", [validateJWT,isCLIENT ], createClient)
+api.get ("/", [validateJWT,isCLIENT ],getClient)
+api.put("/:id", [validateJWT,isCLIENT ],updateClient)
+api.delete("/:id",[validateJWT,isCLIENT ],deleteClient)
 
 export default api;

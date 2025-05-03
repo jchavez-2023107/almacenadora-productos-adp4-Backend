@@ -13,7 +13,7 @@ export const authorizeRoles = (...roles) => (req, res, next) => {
     }
   
     // 🔹 Bloquear que un CLIENT pueda cambiar su rol a ADMIN
-    if (req.body.role === "ADMIN_ROLE" && userRole !== "ADMIN_ROLE") {
+    if (req.body.role === "Admin" && userRole !== "Admin") {
         return res.status(403).json({ message: "Forbidden: You cannot assign yourself as ADMIN" });
     }
   

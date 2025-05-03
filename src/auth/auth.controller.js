@@ -10,7 +10,8 @@ import { generateToken } from "../../utils/jwt.js";
  */
 export const registerUser = async (req, res) => {
   try {
-    const { name, surname, username, email, password, phone } = req.body;
+    const { name, surname, username, email, password, phone, role } = req.body;
+    const ROLES = ["Admin", "Employee", "CLIENT"]
 
     // Verificar si el usuario ya existe
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
@@ -18,10 +19,22 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({ message: "Username or Email already taken" });
     }
 
+    // Validar el rol si fue proporcionado
+    let finalRole = "CLIENT"; // Valor por defecto
+    if (role) {
+      if (!ROLES.includes(role)) {
+        return res.status(400).json({ 
+          message: "Invalid role",
+          validRoles: ROLES
+        });
+      }
+      finalRole = role;
+    }
+
     // Encriptar la contraseña
     const hashedPassword = await encrypt(password);
 
-    // Crear usuario con CLIENT_ROLE por defecto
+    // Crear usuario con el rol determinado
     const newUser = new User({
       name,
       surname,
@@ -29,7 +42,7 @@ export const registerUser = async (req, res) => {
       email,
       password: hashedPassword,
       phone,
-      role: "CLIENT_ROLE",
+      role: finalRole, // Usamos el rol validado
     });
 
     await newUser.save();
@@ -38,10 +51,16 @@ export const registerUser = async (req, res) => {
     const userResponse = newUser.toObject();
     delete userResponse.password;
 
-    res.status(201).json({ message: "User registered successfully", user: userResponse });
+    res.status(201).json({ 
+      message: "User registered successfully", 
+      user: userResponse 
+    });
   } catch (error) {
     console.error("❌ Error in registerUser:", error);
-    res.status(500).json({ message: "Error registering user", error: error.message });
+    res.status(500).json({ 
+      message: "Error registering user", 
+      error: error.message 
+    });
   }
 };
 

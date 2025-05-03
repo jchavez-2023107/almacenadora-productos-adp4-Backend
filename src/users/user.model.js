@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const ROLES = ["Admin", "Employee", "CLIENT_ROLE"];
+const ROLES = ["Admin", "Employee", "CLIENT"];
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ROLES,
-    default: "CLIENT_ROLE",
+    default: "CLIENT",
   },
   createdAt: {
     type: Date,

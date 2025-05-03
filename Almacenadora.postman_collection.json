@@ -10,13 +10,140 @@
 			"name": "Clientes",
 			"item": [
 				{
+					"name": "Login Client",
+					"item": [
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"María Camila\",\r\n  \"surname\": \"Chupina Lopéz\",\r\n  \"username\": \"mchupina-2326158\",\r\n  \"email\": \"mchupina-2326158@kinal.edu.gt\",\r\n  \"password\" :\"12345789Aa!\",\r\n  \"phone\": \"5296389\"\r\n  \r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:2636/api/auth/register",
+									"host": [
+										"localhost"
+									],
+									"port": "2636",
+									"path": [
+										"api",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = JSON.parse(responseBody);\r",
+											"postman.setGlobalVariable(\"token\", data.token)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n \"userlogin\": \"mchupina-2326158@kinal.edu.gt\",\r\n \"password\" :\"12345789Aa!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:2636/api/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "2636",
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Test",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:2636/api/auth/test",
+									"host": [
+										"localhost"
+									],
+									"port": "2636",
+									"path": [
+										"api",
+										"auth",
+										"test"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "CreateClient",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"María López\",\r\n  \"contact\": \"marialopez@gmail.com\",\r\n  \"company\": \"Tech Corp\",\r\n  \"product\": \"Almacenamiento frío\"\r\n}\r\n",
+							"raw": "{\r\n  \"name\": \"María López\",\r\n  \"email\": \"marialopez3@gmail.com\",\r\n  \"company\": \"Tech Corp\",\r\n  \"product\": \"Almacenamiento frío\",\r\n  \"phone\": \"+502 98765432\"\r\n  \r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -41,7 +168,13 @@
 					"name": "GetClient",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:2636/api/client",
 							"host": [
@@ -60,10 +193,16 @@
 					"name": "UpdateClient",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"María De Jesus\"\r\n\r\n}\r\n",
+							"raw": "{\r\n  \"name\": \"María De Jesus\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -71,7 +210,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:2636/api/client/6813ac242af64687480aa62a",
+							"raw": "localhost:2636/api/client/6815aaffd57c1f4c29aa85dd",
 							"host": [
 								"localhost"
 							],
@@ -79,7 +218,7 @@
 							"path": [
 								"api",
 								"client",
-								"6813ac242af64687480aa62a"
+								"6815aaffd57c1f4c29aa85dd"
 							]
 						}
 					},
@@ -89,9 +228,15 @@
 					"name": "DeleteClient",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "localhost:2636/api/client/6813ab8732eca1f61b280079",
+							"raw": "localhost:2636/api/client/6815ab1bd57c1f4c29aa85e6",
 							"host": [
 								"localhost"
 							],
@@ -99,7 +244,7 @@
 							"path": [
 								"api",
 								"client",
-								"6813ab8732eca1f61b280079"
+								"6815ab1bd57c1f4c29aa85e6"
 							]
 						}
 					},
@@ -111,13 +256,122 @@
 			"name": "Proveedor",
 			"item": [
 				{
+					"name": "Login Proveedor",
+					"item": [
+						{
+							"name": "Register Admin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Diego André\",\r\n  \"surname\": \"Chupina Méndez\",\r\n  \"username\": \"dchupina-2023120\",\r\n  \"email\": \"dchupina@kinal.edu.gt\",\r\n  \"password\" :\"12345789Aa!\",\r\n  \"phone\": \"52963898\",\r\n  \"role\": \"Admin\"\r\n\r\n  \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:2636/api/auth/register",
+									"host": [
+										"localhost"
+									],
+									"port": "2636",
+									"path": [
+										"api",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = JSON.parse(responseBody);\r",
+											"postman.setGlobalVariable(\"token\", data.token)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n \"userlogin\": \"dchupina@kinal.edu.gt\",\r\n \"password\" :\"12345789Aa!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:2636/api/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "2636",
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Test",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:2636/api/auth/test",
+									"host": [
+										"localhost"
+									],
+									"port": "2636",
+									"path": [
+										"api",
+										"auth",
+										"test"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "CreateSuppliers",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Tech Solutions SA\",\r\n  \"adress\": \"Av. Siempre Viva 123, Lima, Perú\",\r\n  \"email\": \"contacto@techsolutions.com\",\r\n  \"phone\": \"+502 98765432\"\r\n}\r\n",
+							"raw": "{\r\n  \"name\": \"Joel chavex\",\r\n  \"address\": \"Av. Siempre Viva 123, Lima, Perú\",\r\n  \"email\": \"contacto@techsolution3.com\",\r\n  \"phone\": \"+502 98765432\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -142,7 +396,13 @@
 					"name": "GetSuppliers",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:2636/api/suppliers",
 							"host": [
@@ -161,10 +421,16 @@
 					"name": "UpdateSuppliers",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"phone\": \"+502 98765432\"\r\n}\r\n",
+							"raw": "{\r\n  \"name\": \"Alamcenadora 404 Not Found\", \r\n  \"phone\": \"+502 98765238\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -172,7 +438,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:2636/api/suppliers/6813b1feb519a653040a09d7",
+							"raw": "localhost:2636/api/suppliers/6815ae0060a382e4e128d768",
 							"host": [
 								"localhost"
 							],
@@ -180,7 +446,7 @@
 							"path": [
 								"api",
 								"suppliers",
-								"6813b1feb519a653040a09d7"
+								"6815ae0060a382e4e128d768"
 							]
 						}
 					},
@@ -190,9 +456,15 @@
 					"name": "DeleteSuppliers",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "localhost:2636/api/suppliers/6813b31330206e08ddcdf392",
+							"raw": "localhost:2636/api/suppliers/6815ad8f60a382e4e128d75c",
 							"host": [
 								"localhost"
 							],
@@ -200,7 +472,7 @@
 							"path": [
 								"api",
 								"suppliers",
-								"6813b31330206e08ddcdf392"
+								"6815ad8f60a382e4e128d75c"
 							]
 						}
 					},

@@ -1,57 +1,101 @@
 "use strict";
 
 import jwt from "jsonwebtoken";
-import User from "../src/users/user.model.js";
+import { findUser } from "../utils/db.validators.js";
 
 export const validateJWT = async (req, res, next) => {
   try {
     const secretKey = process.env.SECRET_KEY;
     const { authorization } = req.headers;
 
-    if (!authorization || !authorization.startsWith("Bearer")) {
+    if (!authorization) {
       return res
         .status(401)
-        .json({ message: "Unauthorized - No token provided" });
+        .send({ message: "Unauthorized - No token provided 1" });
     }
-
-    // Extraer el token
-    const token = authorization.split(" ")[1];
 
     // Verificar el token
-    const decoded = jwt.verify(token, secretKey);
+    const user = jwt.verify(authorization, secretKey);
 
     // Cargar el usuario de la base de datos para obtener el valor actual de updateAt
-    const user = await User.findById(decoded.uid);
-    if (!user) {
-      return res.status(401).json({ message: "Unauthorized - User not found" });
+    const validateUser = await findUser(user.uid)
+    if (!validateUser) {
+      return res.status(401).send({ message: "Unauthorized - User not found 2" });
     }
 
-    // Comparar tokenVersion del token con el timestamp actual de updateAt del usuario
-    const currentVersion = user.updatedAt.getTime();
-    if (decoded.tokenVersion < currentVersion) {
-      return res
-        .status(401)
-        .json({ message: "Token is outdated, please re-login" });
-    }
-
-    // Inyectar en la solicitud del user autenticado
     req.user = {
-      id: decoded.uid,
-      username: decoded.username,
-      role: decoded.role,
-    };
-
+      id: user._id,        
+      uid: user._id,       
+      username: user.username,
+      role: user.role,     
+      email: user.email
+    }
     next();
   } catch (err) {
     console.error("❌ JWT Error:", err);
-
-    // Si el token ha expirado, devolver un mensaje claro
-    if (err.name === "TokenExpiredError") {
-      return res
-        .status(401)
-        .json({ message: "Token expired. Please log in again." });
-    }
-
-    return res.status(401).json({ message: "Invalid token" });
+    return res.status(401).json({ message: "Invalid token", err});
   }
 };
+
+export const isAdmin = async(req, res, next) =>{
+  try{
+      const {user} = req
+      if(!user || user.role !== 'Admin') return res.status(403).send(
+          {
+              success: false,
+              message: `You dont have access ${user.username}`
+          }
+      )
+      next()
+  }catch(e){
+      console.error(e)
+      return res.status(403).send(
+          {
+              success: false,
+              message: 'Error with authorization'
+          }
+      )
+  }
+}
+
+export const isEmployee = async(req, res, next) =>{
+  try{
+      const {user} = req
+      if(!user || user.role !== 'Employee') return res.status(403).send(
+          {
+              success: false,
+              message: `You dont have access ${user.username}`
+          }
+      )
+      next()
+  }catch(e){
+      console.error(e)
+      return res.status(403).send(
+          {
+              success: false,
+              message: 'Error with authorization'
+          }
+      )
+  }
+}
+
+export const isCLIENT = async(req, res, next) =>{
+  try{
+      const {user} = req
+      if(!user || user.role !== 'CLIENT') return res.status(403).send(
+          {
+              success: false,
+              message: `You dont have access ${user.username}`
+          }
+      )
+      next()
+  }catch(e){
+      console.error(e)
+      return res.status(403).send(
+          {
+              success: false,
+              message: 'Error with authorization'
+          }
+      )
+  }
+}

@@ -5,9 +5,9 @@ import Clients from "./client.model.js"
 
 export const createClient = async (req, res) => {
     try{
-        const{name,contact,company,product,phone} = req.body;
+        const{name,email,company,product,phone} = req.body;
 
-        const newClient = new Clients({name,contact,company,product,phone});
+        const newClient = new Clients({name,email,company,product,phone});
         await newClient.save();
 
         res.status(201).json({
@@ -84,21 +84,21 @@ export const addDefaultClients = async () => {
       const defaultClients = [
         {
           name: "Empresa Logística Lima SAC",
-          contact: "empresaLogi@gmail.com",
+          email: "empresaLogi@gmail.com",
           company: "Empresa Logística Lima SAC",
           product: "Cajas de cartón",
           phone: "+502 98765432"
         },
         {
           name: "Distribuciones del Norte SRL",
-          contact: "distribuiDelNorte@gmail.com",
+          email: "distribuiDelNorte@gmail.com",
           company: "Distribuciones del Norte SRL",
           product: "Palets plásticos",
           phone: "+502 91234567"
         },
         {
           name: "Transportes Andes EIRL",
-          contact: "transportesAndre@gmail.com",
+          email: "transportesAndre@gmail.com",
           company: "Transportes Andes EIRL",
           product: "Contenedores metálicos",
           phone: "+502 92345678"
