@@ -153,3 +153,61 @@ export const deleteProd = async(req, res) => {
         return res.status(500).send({message: 'General Error deletProd'})
     }
 }
+
+
+export const getInventoryReport = async (req, res) => {
+    try {
+        const products = await Product.find().populate('supplier category', 'name')
+
+        if (products.length === 0) {
+            return res.status(404).send(
+                { 
+                    success: false, 
+                    message: 'Product not found' 
+                }
+            )
+        }
+
+        let totalStock = 0;
+        let totalValue = 0;
+
+        const productReport = products.map(product => {
+            const stock = Number(product.stock)
+            const price = Number(product.price)
+            const value = stock * price
+
+            totalStock += stock
+            totalValue += value
+
+            return {
+                name: product.name,
+                category: product.category?.name,
+                supplier: product.supplier?.name,
+                stock,
+                price,
+                totalValue: value
+            }
+        }
+        )
+
+        return res.send(
+            {
+                success: true,
+                message: 'Inventory report generated',
+                data: {
+                    products: productReport,
+                    totalStock,
+                    totalInventoryValue: totalValue
+                }
+            }
+        )
+        
+    } catch (e) {
+        console.error(e)
+        return res.status(500).send(
+            { 
+                message: 'General Error in Inventory Report' 
+            }
+        )
+    }
+}

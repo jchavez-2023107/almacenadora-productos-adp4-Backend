@@ -44,3 +44,26 @@ export const updatePasswordValidator = [
     ),
   validateErrors,
 ];
+
+export const validateAddMovement = [
+  body('type')
+    .notEmpty()
+    .withMessage('Type is required')
+    .isIn(['entrada', 'salida'])
+    .withMessage('Invalid movement type'),
+  body('product')
+    .notEmpty()
+    .withMessage('Product is required')
+    .isMongoId()
+    .withMessage('Invalid product ID'),
+  body('quantity')
+    .isInt({ min: 1 })
+    .withMessage('Quantity must be a positive integer'),
+  body('date')
+    .isISO8601()
+    .withMessage('Date must be a valid ISO8601 date'),
+  body('employee')
+    .notEmpty()
+    .withMessage('Employee is required'),
+  validateErrors,
+]
