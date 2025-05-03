@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "1446bd97-5cc3-4996-a15f-521116490526",
+		"_postman_id": "a8396528-6470-45f3-99fe-550ce1d81b58",
 		"name": "Almacenadora",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37956968"
+		"_exporter_id": "37956952"
 	},
 	"item": [
 		{
@@ -71,6 +71,19 @@
 				},
 				{
 					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"postman.setGlobalVariable(\"token\", data.token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -116,7 +129,7 @@
 						"header": [
 							{
 								"key": "authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE2NTc1MWVkMDAyZjRiOTdmZDMwYTkiLCJ1c2VybmFtZSI6InBwYWxhY2lvcyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjI5NDc5NCwiZXhwIjoxNzQ2MzA1NTk0fQ.yQ19tFO6BgmUZ8cVwTFGnsd32rCNWyYljFWwQ3ifkkw",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -182,7 +195,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE2NTc1MWVkMDAyZjRiOTdmZDMwYTkiLCJ1c2VybmFtZSI6InBwYWxhY2lvcyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjMwNTYxMiwiZXhwIjoxNzQ2MzE2NDEyfQ.odam06iiqNaTfXe-gAv-jR0TZksxj4gwBWF-OzlTvPs",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -218,7 +231,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE2NTc1MWVkMDAyZjRiOTdmZDMwYTkiLCJ1c2VybmFtZSI6InBwYWxhY2lvcyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjI5NDc5NCwiZXhwIjoxNzQ2MzA1NTk0fQ.yQ19tFO6BgmUZ8cVwTFGnsd32rCNWyYljFWwQ3ifkkw",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -239,7 +252,7 @@
 								},
 								{
 									"key": "category",
-									"value": "68144140d08a7846432d1107",
+									"value": "68169649ba6a4ea90857773e",
 									"type": "text"
 								},
 								{
@@ -251,7 +264,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:2636/api/products/updateProd/68164d82f382191b58345582",
+							"raw": "localhost:2636/api/products/updateProd/68169649ba6a4ea908577747",
 							"host": [
 								"localhost"
 							],
@@ -260,7 +273,7 @@
 								"api",
 								"products",
 								"updateProd",
-								"68164d82f382191b58345582"
+								"68169649ba6a4ea908577747"
 							]
 						}
 					},
@@ -302,6 +315,33 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getInventoryReport Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2636/api/products/inventoryReport",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"products",
+								"inventoryReport"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -315,7 +355,7 @@
 						"header": [
 							{
 								"key": "authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE0M2YzN2QwOGE3ODQ2NDMyZDEwZjAiLCJ1c2VybmFtZSI6InBwYWxhY2lvcyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjE1NzM3OCwiZXhwIjoxNzQ2MTY4MTc4fQ.Ed7RoQmLZWu3N1KSrfQ6fksKDUyx2Ny51cl60clSlBI",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -402,7 +442,7 @@
 						"header": [
 							{
 								"key": "authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE2NTc1MWVkMDAyZjRiOTdmZDMwYTkiLCJ1c2VybmFtZSI6InBwYWxhY2lvcyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NjMwNTYxMiwiZXhwIjoxNzQ2MzE2NDEyfQ.odam06iiqNaTfXe-gAv-jR0TZksxj4gwBWF-OzlTvPs",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -440,7 +480,13 @@
 					"name": "getAll",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:2636/api/categorys/getCategorys",
 							"host": [
@@ -503,6 +549,265 @@
 								"categorys",
 								"deleteCat",
 								"6813655f849809f17303f290"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movement",
+			"item": [
+				{
+					"name": "addMovement Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "product",
+									"value": "68169e7accae17847e04ff0a",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "salida",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "50",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2025-05-03T00:00:00.000Z",
+									"type": "text"
+								},
+								{
+									"key": "employee",
+									"value": "Alejandro",
+									"type": "text"
+								},
+								{
+									"key": "reason",
+									"value": "Reabastecimiento",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:2636/api/movements/addMovement",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"movements",
+								"addMovement"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMovement Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:2636/api/movements/getMovements?limit=10&skip=0&type=salida&product=68169e7accae17847e04ff0a&employee=Kenny",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"movements",
+								"getMovements"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "type",
+									"value": "salida"
+								},
+								{
+									"key": "product",
+									"value": "68169e7accae17847e04ff0a"
+								},
+								{
+									"key": "employee",
+									"value": "Kenny"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getReportInventoryMovement Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2636/api/movements/getInventoryMovementsReport?from=2025-05-01&to=2025-05-03",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"movements",
+								"getInventoryMovementsReport"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2025-05-01"
+								},
+								{
+									"key": "to",
+									"value": "2025-05-03"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateMovement",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "product",
+									"value": "68169e7accae17847e04ff0a",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "entrada",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2025-05-03T00:00:00.000Z",
+									"type": "text"
+								},
+								{
+									"key": "employee",
+									"value": "Kenny",
+									"type": "text"
+								},
+								{
+									"key": "reason",
+									"value": "Reabastecimiento",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:2636/api/movements//updateMovement/68169e97ccae17847e04ff1a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"movements",
+								"",
+								"updateMovement",
+								"68169e97ccae17847e04ff1a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2636/api/movements//deleteMovement/68169e97ccae17847e04ff1a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"movements",
+								"",
+								"deleteMovement",
+								"68169e97ccae17847e04ff1a"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
