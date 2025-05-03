@@ -25,6 +25,15 @@ const productSchema = Schema(
             type: Date,
             required: true
         },
+        expirationDate: {
+            type: Date,
+            required: false
+        },
+        note: { //Para dejar una nota del motivo del porque se quiere agregar o quitar un producto
+            type: String,
+            maxLength: 250,
+            required: false
+        },
         supplier: {
             type: Schema.Types.ObjectId,
             ref: 'Supplier',

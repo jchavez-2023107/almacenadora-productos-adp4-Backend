@@ -1,16 +1,16 @@
 {
 	"info": {
-		"_postman_id": "1446bd97-5cc3-4996-a15f-521116490526",
+		"_postman_id": "244a14a7-82a3-43ef-bfe6-3cf20983571c",
 		"name": "Almacenadora",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37956968"
+		"_exporter_id": "37957014"
 	},
 	"item": [
 		{
 			"name": "Auth",
 			"item": [
 				{
-					"name": "Add",
+					"name": "Register",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -71,6 +71,19 @@
 				},
 				{
 					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"postman.setGlobalVariable(\"token\", data.token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -79,12 +92,12 @@
 							"urlencoded": [
 								{
 									"key": "userlogin",
-									"value": "ppalacios",
+									"value": "pbautista2006",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "Papa200622",
+									"value": "adios987*",
 									"type": "text"
 								}
 							]
@@ -103,6 +116,55 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getEmployees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:2636/api/auth/Employees/Employee",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"auth",
+								"Employees",
+								"Employee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductMovements",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:2636/api/products/products/6815a7521ed5fb84b3de9a64/movements",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"products",
+								"products",
+								"6815a7521ed5fb84b3de9a64",
+								"movements"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -110,10 +172,16 @@
 			"name": "Product",
 			"item": [
 				{
-					"name": "add",
+					"name": "addProduct",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
@@ -165,7 +233,7 @@
 					"response": []
 				},
 				{
-					"name": "Get",
+					"name": "getProduct",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -195,27 +263,34 @@
 					"response": []
 				},
 				{
-					"name": "upDate",
+					"name": "updateProduct",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
 									"key": "name",
 									"value": "Nike 3 Pro",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
-									"key": "stock",
-									"value": "300",
+									"key": "expirationDate",
+									"value": "2025-05-07",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:2636/api/products/updateProd/681366ee7497ed51a715d1d2",
+							"raw": "localhost:2636/api/products/updateProd/6815a7521ed5fb84b3de9a64",
 							"host": [
 								"localhost"
 							],
@@ -224,17 +299,23 @@
 								"api",
 								"products",
 								"updateProd",
-								"681366ee7497ed51a715d1d2"
+								"6815a7521ed5fb84b3de9a64"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete",
+					"name": "deleteProduct",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:2636/api/products/deleteProd/681366ee7497ed51a715d1d2",
 							"host": [
@@ -250,6 +331,48 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "updateStock",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "stock",
+									"value": "31",
+									"type": "text"
+								},
+								{
+									"key": "note",
+									"value": "Ya fueron vendidas.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:2636/api/products/updateStock/6815a7521ed5fb84b3de9a64",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"products",
+								"updateStock",
+								"6815a7521ed5fb84b3de9a64"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -257,15 +380,14 @@
 			"name": "Suppliers",
 			"item": [
 				{
-					"name": "Add",
+					"name": "addSupplier",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
-								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODEzNTZiNTE0M2ViNTM2YWMyMGQ1OGMiLCJ1c2VybmFtZSI6InBwYWxhY2lvcyIsInJvbGUiOiJDTElFTlQiLCJpYXQiOjE3NDYwOTgxOTIsImV4cCI6MTc0NjEwODk5Mn0.xZEABEsKMCNH8VfmCj8r6TxgCBJtzqOAYpvHGJmpJQQ",
-								"type": "text",
-								"disabled": true
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -309,10 +431,16 @@
 					"response": []
 				},
 				{
-					"name": "upDate",
+					"name": "updateSupplier",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
@@ -345,10 +473,16 @@
 			"name": "Category",
 			"item": [
 				{
-					"name": "add",
+					"name": "addCategory",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
@@ -380,10 +514,16 @@
 					"response": []
 				},
 				{
-					"name": "getAll",
+					"name": "getCategories",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:2636/api/categorys/getCategorys",
 							"host": [
@@ -400,10 +540,16 @@
 					"response": []
 				},
 				{
-					"name": "upDate",
+					"name": "updateCategory",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
@@ -415,7 +561,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:2636/api/categorys/updateCat/6813655f849809f17303f290",
+							"raw": "localhost:2636/api/categorys/updateCat/6813655f849809f17303f290?",
 							"host": [
 								"localhost"
 							],
@@ -425,16 +571,28 @@
 								"categorys",
 								"updateCat",
 								"6813655f849809f17303f290"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "delete",
+					"name": "deleteCategory",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:2636/api/categorys/deleteCat/6813655f849809f17303f290",
 							"host": [

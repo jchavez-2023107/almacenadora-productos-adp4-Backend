@@ -11,11 +11,14 @@ import { agregarClientesPorDefecto } from "./src/clients/client.controller.js";*
 import { createDefaultCategories } from "./src/category/category.default.js";
 import { createDefaultProducts } from "./src/products/products.default.js";
 import { createDefaultSupplier } from "./src/suppliers/suppliers.default.js";
-import { initServer } from "./configs/app.js"; // Inicialización del servidor Express
+import { createDefaultUsers } from "./src/users/user.default.js";
 
 createDefaultProducts()
 createDefaultCategories()
 createDefaultSupplier()
+createDefaultUsers()
+
+import { initServer } from "./configs/app.js"; // Inicialización del servidor Express
 
 // Iniciar conexión a MongoDB
  (async () => {

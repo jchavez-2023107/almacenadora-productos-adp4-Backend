@@ -1,6 +1,19 @@
 import Product from '../products/products.model.js'
 import User from '../users/user.model.js'
 import { checkPassword } from '../../utils/encrypt.js'
+import ProductMovements from '../movements/productMovements.model.js'
+
+const saveProductMovements = async (productId, changedFields, updatedBy = 'system') => {
+    try {
+        await ProductMovements.create({
+            productId,
+            changedFields,
+            updatedBy
+        });
+    } catch (e) {
+        console.error('❌ Error al guardar historial del producto:', e);
+    }   
+}
 
 export const addProduct = async(req, res) =>{
     try{
@@ -11,6 +24,9 @@ export const addProduct = async(req, res) =>{
         const newProduct = await Product.findById(product._id)
             .populate('category')
             .populate('supplier')
+
+        checkLowStock(newProduct)
+        checkExpirationAlert(newProduct);
 
         return res.send(
             {
@@ -24,6 +40,27 @@ export const addProduct = async(req, res) =>{
         return res.status(500).send({message: 'General Error AddPro'})
     }
 }
+
+const checkLowStock = (product) => {
+    if (parseInt(product.stock) <= 5) {
+        console.warn(`⚠️ Stock bajo para el producto "${product.name}": solo quedan ${product.stock} unidades`);
+    }
+}
+
+const checkExpirationAlert = (product) => {
+    if (!product.expirationDate) return; // No hay fecha de vencimiento
+
+    const today = new Date();
+    const expiration = new Date(product.expirationDate);
+
+    const diffTime = expiration.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Diferencia en días
+
+    if (diffDays <= 5 && diffDays >= 0) {
+        console.warn(`⏰ El producto "${product.name}" vencerá en ${diffDays} día(s) (fecha de vencimiento: ${expiration.toISOString().split('T')[0]})`);
+    }
+}
+
 
 export const getProduct = async(req, res) =>{
     try{
@@ -80,7 +117,9 @@ export const updateProd = async(req, res) =>{
                 price: data.price,
                 description: data.description,
                 stock: data.stock,
-                dateDelivery: data.dateDelivery
+                dateDelivery: data.dateDelivery,
+                expirationDate: data.expirationDate,
+                note: data.note
             },
             {new: true}
         )
@@ -93,6 +132,20 @@ export const updateProd = async(req, res) =>{
                 message: 'Product not found'
             }
         )
+
+        checkLowStock(updateStock)
+        checkExpirationAlert(updateProd)    
+
+        await saveProductMovements(id, {
+            name: data.name,
+            price: data.price,
+            description: data.description,
+            stock: data.stock,
+            dateDelivery: data.dateDelivery,
+            expirationDate: data.expirationDate,
+            note: data.note
+        }, req.user.username)        
+
         return res.send(
             {
                 success: true,
@@ -114,7 +167,8 @@ export const updateStock = async(req, res) => {
             id,
             {
                 stock: data.stock,
-                dateDelivery: data.dateDelivery
+                dateDelivery: data.dateDelivery,
+                note: data.note
             }
             ,
             {new: true}             
@@ -126,6 +180,16 @@ export const updateStock = async(req, res) => {
                 message: 'Product not found'
             }
         )
+
+        checkLowStock(updateStock)
+        checkExpirationAlert(updateStock)
+
+        await saveProductMovements(id, {
+            stock: data.stock,
+            dateDelivery: data.dateDelivery,
+            note: data.note
+        }, req.user.username)
+
         return res.send(
             {
                 success: true,
@@ -156,5 +220,28 @@ export const deleteProd = async(req, res) => {
     }catch(e){
         console.error(e)
         return res.status(500).send({message: 'General Error deletProd'})
+    }
+}
+
+export const getProductMovements = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const history = await ProductMovements.find({ productId: id }).sort({ changedAt: -1 });
+
+        if (history.length === 0) {
+            return res.status(404).send({
+                success: false,
+                message: 'No hay historial para este producto'
+            });
+        }
+
+        return res.send({
+            success: true,
+            message: 'Historial del producto',
+            history
+        });
+    } catch (e) {
+        console.error(e);
+        return res.status(500).send({ message: 'Error al obtener historial del producto' });
     }
 }
