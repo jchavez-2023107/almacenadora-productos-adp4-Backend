@@ -1,10 +1,9 @@
 {
 	"info": {
-<<<<<<< HEAD
-		"_postman_id": "fc17f657-5e28-48a9-a809-6c1d7e67d18f",
-		"name": "Almacenadora",
+		"_postman_id": "5a2573ab-f185-4b93-9747-84642c2326db",
+		"name": "Almacenadora 404 NOT FOUD",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37957014"
+		"_exporter_id": "37956994"
 	},
 	"item": [
 		{
@@ -93,12 +92,12 @@
 							"urlencoded": [
 								{
 									"key": "userlogin",
-									"value": "pbautista2006",
+									"value": "jchavez2006@gmail.com",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "adios987*",
+									"value": "losrojos78*",
 									"type": "text"
 								}
 							]
@@ -146,155 +145,16 @@
 			"item": [
 				{
 					"name": "addProduct",
-=======
-		"_postman_id": "545a815e-ad96-4fed-9057-f6c88578289d",
-		"name": "Almacenadora",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37956994"
-	},
-	"item": [
-		{
-			"name": "Clientes",
-			"item": [
-				{
-					"name": "Login Client",
-					"item": [
-						{
-							"name": "Register",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"name\": \"María Camila\",\r\n  \"surname\": \"Chupina Lopéz\",\r\n  \"username\": \"mchupina-2326158\",\r\n  \"email\": \"mchupina-2326158@kinal.edu.gt\",\r\n  \"password\" :\"12345789Aa!\",\r\n  \"phone\": \"5296389\"\r\n  \r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "localhost:2636/api/auth/register",
-									"host": [
-										"localhost"
-									],
-									"port": "2636",
-									"path": [
-										"api",
-										"auth",
-										"register"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Login",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"var data = JSON.parse(responseBody);\r",
-											"postman.setGlobalVariable(\"token\", data.token)"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n \"userlogin\": \"mchupina-2326158@kinal.edu.gt\",\r\n \"password\" :\"12345789Aa!\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "localhost:2636/api/auth/login",
-									"host": [
-										"localhost"
-									],
-									"port": "2636",
-									"path": [
-										"api",
-										"auth",
-										"login"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Test",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{token}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "localhost:2636/api/auth/test",
-									"host": [
-										"localhost"
-									],
-									"port": "2636",
-									"path": [
-										"api",
-										"auth",
-										"test"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "CreateClient",
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 					"request": {
 						"method": "POST",
 						"header": [
 							{
-<<<<<<< HEAD
 								"key": "authorization",
-=======
-								"key": "Authorization",
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
-<<<<<<< HEAD
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
@@ -346,41 +206,21 @@
 						},
 						"url": {
 							"raw": "localhost:2636/api/products/addProduct",
-=======
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"María López\",\r\n  \"email\": \"marialopez3@gmail.com\",\r\n  \"company\": \"Tech Corp\",\r\n  \"product\": \"Almacenamiento frío\",\r\n  \"phone\": \"+502 98765432\"\r\n  \r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:2636/api/client",
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 							"host": [
 								"localhost"
 							],
 							"port": "2636",
 							"path": [
 								"api",
-<<<<<<< HEAD
 								"products",
 								"addProduct"
-=======
-								"client"
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 							]
 						}
 					},
 					"response": []
 				},
 				{
-<<<<<<< HEAD
 					"name": "getProducts",
-=======
-					"name": "GetClient",
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 					"request": {
 						"method": "GET",
 						"header": [
@@ -391,30 +231,21 @@
 							}
 						],
 						"url": {
-<<<<<<< HEAD
 							"raw": "localhost:2636/api/products/getProducts",
-=======
-							"raw": "localhost:2636/api/client",
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 							"host": [
 								"localhost"
 							],
 							"port": "2636",
 							"path": [
 								"api",
-<<<<<<< HEAD
 								"products",
 								"getProducts"
-=======
-								"client"
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 							]
 						}
 					},
 					"response": []
 				},
 				{
-<<<<<<< HEAD
 					"name": "getInventoryReport",
 					"request": {
 						"method": "GET",
@@ -471,9 +302,6 @@
 				},
 				{
 					"name": "updateProduct",
-=======
-					"name": "UpdateClient",
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -484,7 +312,6 @@
 							}
 						],
 						"body": {
-<<<<<<< HEAD
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
@@ -574,43 +401,22 @@
 						},
 						"url": {
 							"raw": "localhost:2636/api/products/updateStock/",
-=======
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"María De Jesus\"\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:2636/api/client/6815aaffd57c1f4c29aa85dd",
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 							"host": [
 								"localhost"
 							],
 							"port": "2636",
 							"path": [
 								"api",
-<<<<<<< HEAD
 								"products",
 								"updateStock",
 								""
-=======
-								"client",
-								"6815aaffd57c1f4c29aa85dd"
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 							]
 						}
 					},
 					"response": []
 				},
 				{
-<<<<<<< HEAD
 					"name": "deleteProduct",
-=======
-					"name": "DeleteClient",
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -620,7 +426,6 @@
 								"type": "text"
 							}
 						],
-<<<<<<< HEAD
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
@@ -633,24 +438,15 @@
 						},
 						"url": {
 							"raw": "localhost:2636/api/products/deleteProduct/",
-=======
-						"url": {
-							"raw": "localhost:2636/api/client/6815ab1bd57c1f4c29aa85e6",
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 							"host": [
 								"localhost"
 							],
 							"port": "2636",
 							"path": [
 								"api",
-<<<<<<< HEAD
 								"products",
 								"deleteProduct",
 								""
-=======
-								"client",
-								"6815ab1bd57c1f4c29aa85e6"
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 							]
 						}
 					},
@@ -659,127 +455,16 @@
 			]
 		},
 		{
-<<<<<<< HEAD
 			"name": "Suppliers",
 			"item": [
 				{
-					"name": "addSuppliers",
-=======
-			"name": "Proveedor",
-			"item": [
-				{
-					"name": "Login Proveedor",
-					"item": [
-						{
-							"name": "Register Admin",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"name\": \"Diego André\",\r\n  \"surname\": \"Chupina Méndez\",\r\n  \"username\": \"dchupina-2023120\",\r\n  \"email\": \"dchupina@kinal.edu.gt\",\r\n  \"password\" :\"12345789Aa!\",\r\n  \"phone\": \"52963898\",\r\n  \"role\": \"Admin\"\r\n\r\n  \r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "localhost:2636/api/auth/register",
-									"host": [
-										"localhost"
-									],
-									"port": "2636",
-									"path": [
-										"api",
-										"auth",
-										"register"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Login Admin",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"var data = JSON.parse(responseBody);\r",
-											"postman.setGlobalVariable(\"token\", data.token)"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n \"userlogin\": \"dchupina@kinal.edu.gt\",\r\n \"password\" :\"12345789Aa!\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "localhost:2636/api/auth/login",
-									"host": [
-										"localhost"
-									],
-									"port": "2636",
-									"path": [
-										"api",
-										"auth",
-										"login"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Test",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{token}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "localhost:2636/api/auth/test",
-									"host": [
-										"localhost"
-									],
-									"port": "2636",
-									"path": [
-										"api",
-										"auth",
-										"test"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
 					"name": "CreateSuppliers",
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
 								"value": "{{token}}",
-<<<<<<< HEAD
-=======
 								"type": "text",
 								"disabled": true
 							}
@@ -840,39 +525,10 @@
 							{
 								"key": "Authorization",
 								"value": "{{token}}",
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 								"type": "text"
 							}
 						],
 						"body": {
-<<<<<<< HEAD
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "Alejandro",
-									"type": "text"
-								},
-								{
-									"key": "adress",
-									"value": "Guatemala",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "alejochavez@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "phone",
-									"value": "54824252",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "localhost:2636/api/suppliers/addSupplier",
-=======
 							"mode": "raw",
 							"raw": "{\r\n  \"name\": \"Alamcenadora 404 Not Found\", \r\n  \"phone\": \"+502 98765238\"\r\n}\r\n",
 							"options": {
@@ -882,8 +538,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:2636/api/suppliers/6815ae0060a382e4e128d768",
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
+							"raw": "localhost:2636/api/suppliers/6816f0e82595a61c0b0245f4",
 							"host": [
 								"localhost"
 							],
@@ -891,26 +546,16 @@
 							"path": [
 								"api",
 								"suppliers",
-<<<<<<< HEAD
-								"addSupplier"
-=======
-								"6815ae0060a382e4e128d768"
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
+								"6816f0e82595a61c0b0245f4"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-<<<<<<< HEAD
-					"name": "updateSuppliers",
-					"request": {
-						"method": "PUT",
-=======
 					"name": "DeleteSuppliers",
 					"request": {
 						"method": "DELETE",
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 						"header": [
 							{
 								"key": "Authorization",
@@ -918,38 +563,8 @@
 								"type": "text"
 							}
 						],
-<<<<<<< HEAD
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "Pablo",
-									"type": "text"
-								},
-								{
-									"key": "adress",
-									"value": "Guatemala",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "pablopalacios@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "phone",
-									"value": "45089825",
-									"type": "text"
-								}
-							]
-						},
 						"url": {
-							"raw": "localhost:2636/api/suppliers/updateSupplier/",
-=======
-						"url": {
-							"raw": "localhost:2636/api/suppliers/6815ad8f60a382e4e128d75c",
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
+							"raw": "localhost:2636/api/suppliers/6816eff436c3abd227a89b0c",
 							"host": [
 								"localhost"
 							],
@@ -957,9 +572,7 @@
 							"path": [
 								"api",
 								"suppliers",
-<<<<<<< HEAD
-								"updateSupplier",
-								""
+								"6816eff436c3abd227a89b0c"
 							]
 						}
 					},
@@ -1360,11 +973,21 @@
 									"value": null,
 									"disabled": true
 								}
-=======
-								"6815ad8f60a382e4e128d75c"
->>>>>>> 19cadc48880808501b7f4bed7bb33a93e19fc076
 							]
 						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
