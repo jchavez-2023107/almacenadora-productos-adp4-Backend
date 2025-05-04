@@ -1,21 +1,12 @@
 import { Router } from "express"
-import { validateRoles, validateJWT } from "../../middlewares/validate.jwt.js"
-import { addSupplier, updateSupplier } from "./suppliers.controller.js"
+import { addSupplier, getSuppliers,updateSupp,deleteSuppliers } from "./suppliers.controller.js"
+import { validateJWT,validateRoles} from "../../middlewares/validate.jwt.js"
 
 const api = Router()
 
-api.post('/addSupplier', 
-    [
-        validateJWT, 
-        validateRoles('Admin')
-    ], 
-addSupplier)
-
-api.put('/updateSupplier/:id', 
-    [
-        validateJWT, 
-        validateRoles('Admin')
-    ], 
-updateSupplier)
+api.post('/', addSupplier)
+api.get('/',[validateJWT,validateRoles ('Admin') ],getSuppliers )
+api.put('/:id',[validateJWT,validateRoles ('Admin') ], updateSupp)
+api.delete('/:id',[validateJWT,validateRoles ('Admin') ],deleteSuppliers )
 
 export default api
