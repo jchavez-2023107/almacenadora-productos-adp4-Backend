@@ -1,0 +1,1136 @@
+{
+	"info": {
+		"_postman_id": "84d61446-1ba2-4fd3-a721-dd5d8eef126a",
+		"name": "Almacenadora 404 NOT FOUD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37956952"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Andres",
+									"type": "text"
+								},
+								{
+									"key": "surname",
+									"value": "Oliva",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "aoliva",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "aoliva@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "aoliva123",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "55927372",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "Admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:2636/api/auth/register",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"postman.setGlobalVariable(\"token\", data.token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userlogin",
+									"value": "aoliva@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "aoliva123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:2636/api/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEmployees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:2636/api/auth/Employees/Employee",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"auth",
+								"Employees",
+								"Employee"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "addProduct",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Televisor Plasma Negro LG",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "3700",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Televisión de plasma 1080p de 30 pulgadas.",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "300",
+									"type": "text"
+								},
+								{
+									"key": "dateDelivery",
+									"value": "2025-05-01",
+									"type": "text"
+								},
+								{
+									"key": "expirationDate",
+									"value": "2027-05-01",
+									"type": "text"
+								},
+								{
+									"key": "note",
+									"value": "Producto nuevo.",
+									"type": "text"
+								},
+								{
+									"key": "supplier",
+									"value": "6817e8531f7c9a53a13a0829",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "6817e8581f7c9a53a13a082c",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:2636/api/products/addProduct",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"products",
+								"addProduct"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProducts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:2636/api/products/getProducts",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"products",
+								"getProducts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getInventoryReport",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2636/api/products/inventoryReport",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"products",
+								"inventoryReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductHistory",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:2636/api/products/products/6817e6e4ff78d69734530899/history",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"products",
+								"products",
+								"6817e6e4ff78d69734530899",
+								"history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProduct",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Televisor Plasma Negro Samsung",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "4000",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Televisión de plasma 1080p de 32 pulgadas.",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "250",
+									"type": "text"
+								},
+								{
+									"key": "dateDelivery",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "expirationDate",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "note",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:2636/api/products/updateProduct/6817e6e4ff78d69734530899",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"products",
+								"updateProduct",
+								"6817e6e4ff78d69734530899"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateStock",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "stock",
+									"value": "30",
+									"type": "text"
+								},
+								{
+									"key": "note",
+									"value": "Se necesita reabastecer el stock.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:2636/api/products/updateStock/6817e6e4ff78d69734530899",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"products",
+								"updateStock",
+								"6817e6e4ff78d69734530899"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProduct",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "confirm",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:2636/api/products/deleteProduct/6817e87c1f7c9a53a13a082f",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"products",
+								"deleteProduct",
+								"6817e87c1f7c9a53a13a082f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Suppliers",
+			"item": [
+				{
+					"name": "CreateSuppliers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Joel chavex\",\r\n  \"address\": \"Av. Siempre Viva 123, Lima, Perú\",\r\n  \"email\": \"contacto@techsolution3.com\",\r\n  \"phone\": \"+502 98765432\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:2636/api/suppliers",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"suppliers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetSuppliers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:2636/api/suppliers",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"suppliers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateSuppliers",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Alamcenadora 404 Not Found\", \r\n  \"phone\": \"+502 98765238\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:2636/api/suppliers/6817e6e4ff78d697345308a1",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"suppliers",
+								"6817e6e4ff78d697345308a1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteSuppliers",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:2636/api/suppliers/6817e6e4ff78d697345308a1",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"suppliers",
+								"6817e6e4ff78d697345308a1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "addCategory",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Calzado Deportivosssssss",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Calzado apropiado para deportistas.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:2636/api/categorys/addCategory",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"categorys",
+								"addCategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCategories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:2636/api/categorys/getCategories",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"categorys",
+								"getCategories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCategories",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Calzado Deportivo Unisex",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Calzado apropiado para deportistas (Unisex)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:2636/api/categorys/updateCategory/6817e6e4ff78d6973453088b",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"categorys",
+								"updateCategory",
+								"6817e6e4ff78d6973453088b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCategories",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:2636/api/categorys/deleteCategory/6817e6e4ff78d6973453088b",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"categorys",
+								"deleteCategory",
+								"6817e6e4ff78d6973453088b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movement",
+			"item": [
+				{
+					"name": "addMovement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "product",
+									"value": "6817e6e4ff78d69734530899",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "salida",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "30",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2025-05-03T00:00:00.000Z",
+									"type": "text"
+								},
+								{
+									"key": "employee",
+									"value": "Alejandro",
+									"type": "text"
+								},
+								{
+									"key": "reason",
+									"value": "Reabastecimiento",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:2636/api/movements/addMovement",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"movements",
+								"addMovement"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMovement",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:2636/api/movements/getMovements?limit=10&skip=0&type=salida&product=6817e6e4ff78d69734530899&employee=Alejandro",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"movements",
+								"getMovements"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "type",
+									"value": "salida"
+								},
+								{
+									"key": "product",
+									"value": "6817e6e4ff78d69734530899"
+								},
+								{
+									"key": "employee",
+									"value": "Alejandro"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getIDMovement",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:2636/api/movements/getMovement/681810304d14a71af3a85352",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"movements",
+								"getMovement",
+								"681810304d14a71af3a85352"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getReportInventoryMovement",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2636/api/movements/getInventoryMovementsReport?from=2025-05-01&to=2025-05-03",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"movements",
+								"getInventoryMovementsReport"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2025-05-01"
+								},
+								{
+									"key": "to",
+									"value": "2025-05-03"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateMovement",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "product",
+									"value": "6817e6e4ff78d6973453089a",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "entrada",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2025-05-03T00:00:00.000Z",
+									"type": "text"
+								},
+								{
+									"key": "employee",
+									"value": "Kenny",
+									"type": "text"
+								},
+								{
+									"key": "reason",
+									"value": "ReabastecimientoPrueba",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:2636/api/movements//updateMovement/681810304d14a71af3a85352",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"movements",
+								"",
+								"updateMovement",
+								"681810304d14a71af3a85352"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteMovement",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2636/api/movements//deleteMovement/681810304d14a71af3a85352",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"movements",
+								"",
+								"deleteMovement",
+								"681810304d14a71af3a85352"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "CreateClient",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"María López\",\r\n  \"email\": \"marialopez3@gmail.com\",\r\n  \"company\": \"Tech Corp\",\r\n  \"product\": \"Almacenamiento frío\",\r\n  \"phone\": \"+502 98765432\"\r\n  \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:2636/api/client",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetClient",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:2636/api/client",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateClient",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"María De Jesus\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:2636/api/client/6817e6e4ff78d69734530895",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"client",
+								"6817e6e4ff78d69734530895"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteClient",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:2636/api/client/6817e6e4ff78d69734530895",
+							"host": [
+								"localhost"
+							],
+							"port": "2636",
+							"path": [
+								"api",
+								"client",
+								"6817e6e4ff78d69734530895"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
