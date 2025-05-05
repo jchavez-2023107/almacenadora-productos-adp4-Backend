@@ -6,17 +6,29 @@ export const addMovement = async (req, res) => {
         const { product: productId, type, quantity } = req.body
 
         const product = await Product.findById(productId)
-        if (!product) return res.status(404).send({ message: 'Product not found' })
+        if (!product) return res.status(404).send(
+            { 
+                message: 'Product not found' 
+            }
+        )
 
         if (type === 'entrada') {
             product.stock += quantity
         } else if (type === 'salida') {
             if (product.stock < quantity) {
-                return res.status(400).send({ message: 'Insufficient stock' })
+                return res.status(400).send(
+                    { 
+                        message: 'Insufficient stock'
+                    }
+                )
             }
             product.stock -= quantity
         } else {
-            return res.status(400).send({ message: 'Invalid movement type' })
+            return res.status(400).send(
+                { 
+                    message: 'Invalid movement type' 
+                }
+            )
         }
 
         await product.save()
@@ -24,10 +36,18 @@ export const addMovement = async (req, res) => {
         const movement = new Movement(req.body)
         await movement.save()
 
-        return res.send({ message: 'Movement saved successfully' })
+        return res.send(
+            { 
+                message: 'Movement saved successfully' 
+            }
+        )
     } catch (err) {
         console.error(err)
-        return res.status(500).send({ message: 'Error adding movement' })
+        return res.status(500).send(
+            { 
+                message: 'Error adding movement' 
+            }
+        )
     }
 }
 
@@ -78,9 +98,9 @@ export const getInventoryMovementsReport = async (req, res) => {
 
         if (!from || !to) {
             return res.status(400).send(
-              {
-                  message: 'Please provide from and to dates'
-              }
+                {
+                    message: 'Please provide from and to dates'
+                }
             )
         }
 
@@ -89,44 +109,79 @@ export const getInventoryMovementsReport = async (req, res) => {
 
         if (isNaN(startDate) || isNaN(endDate)) {
             return res.status(400).send(
-              {
-                message: 'Invalid date format'
-              }
+                {
+                    message: 'Invalid date format'
+                }
             )
         }
 
         endDate.setHours(23, 59, 59, 999)
 
-        const movements = await Movement.find({
-            date: { $gte: startDate, $lte: endDate }
-        }).populate('product', 'name')
+        const movements = await Movement.find(
+            {
+                date: { $gte: startDate, $lte: endDate }
+            }
+        ).populate('product', 'name')
 
         const report = movements.map(m => (
-          {
-            product: m.product.name,
-            type: m.type,
-            quantity: m.quantity,
-            date: m.date,
-            employee: m.employee,
-            reason: m.reason || null
-          }
-        ))
+            {
+                product: m.product.name,
+                type: m.type,
+                quantity: m.quantity,
+                date: m.date,
+                employee: m.employee,
+                reason: m.reason || null
+            }
+        )
+        )
 
         return res.send(
-          {
-            success: true,
-            message: 'Inventory movements report generated',
-            count: report.length,
-            data: report
-          }
+            {
+                success: true,
+                message: 'Inventory movements report generated',
+                count: report.length,
+                data: report
+            }
         )
 
     } catch (err) {
         console.error(err)
         return res.status(500).send(
-          {
-            message: 'Error generating movement report'
-          }
+            {
+                message: 'Error generating movement report'
+            }
+        )
+    }
+}
+
+export const getMovementById = async (req, res) => {
+    try {
+        const { id } = req.params
+
+        const movement = await Movement.findById(id).populate('product', 'name')
+
+        if (!movement) {
+            return res.status(404).send(
+                {
+                    success: false,
+                    message: 'Movement not found'
+                }
+            )
+        }
+
+        return res.send(
+            {
+                success: true,
+                message: 'Movement found',
+                movement
+            }
+        )
+    } catch (err) {
+        console.error(err)
+        return res.status(500).send(
+            {
+                message: 'Error getting movement by ID'
+            }
         )
     }
 }
@@ -146,14 +201,13 @@ export const updateMovement = async (req, res) => {
             return res.status(404).send({ message: 'Product not found for this movement' })
         }
 
-        // Revert the previous movement effect
+
         if (existing.type === 'entrada') {
             product.stock -= existing.quantity
         } else if (existing.type === 'salida') {
             product.stock += existing.quantity
         }
 
-        // Apply the new movement effect
         if (newData.type === 'entrada') {
             product.stock += newData.quantity
         } else if (newData.type === 'salida') {

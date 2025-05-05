@@ -6,14 +6,14 @@ import{
     updateClient,
     deleteClient,
 }from "./client.contoller.js";
-import { validateJWT,isCLIENT } from "../../middlewares/validate.jwt.js";
+import { validateJWT, validateRoles} from "../../middlewares/validate.jwt.js";
 
 
 const api = Router();
 
-api.post("/", [validateJWT,isCLIENT ], createClient)
-api.get ("/", [validateJWT,isCLIENT ],getClient)
-api.put("/:id", [validateJWT,isCLIENT ],updateClient)
-api.delete("/:id",[validateJWT,isCLIENT ],deleteClient)
+api.post("/", [validateJWT,validateRoles('Admin', 'Employee') ], createClient)
+api.get ("/", [validateJWT,validateRoles('Admin', 'Employee') ],getClient)
+api.put("/:id", [validateJWT,validateRoles('Admin', 'Employee') ],updateClient)
+api.delete("/:id",[validateJWT,validateRoles('Admin', 'Employee') ],deleteClient)
 
 export default api;

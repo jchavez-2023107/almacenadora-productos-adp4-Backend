@@ -14,7 +14,8 @@ const movementSchema = Schema(
         },
         quantity: {
             type: Number,
-            required: true
+            required: true,
+            min: [1, 'La cantidad mínima debe ser 1']
         },
         date: {
             type: Date,

@@ -1,24 +1,47 @@
 import { Router } from "express"
-import { addMovement, getMovements, deleteMovement, getInventoryMovementsReport, updateMovement} from "./movement.controller.js"
-import { validateAddMovement } from "../../middlewares/validators.js"
-import { validateRoles, validateJWT } from "../../middlewares/validate.jwt.js"
+import {
+    addMovement,
+    getMovements,
+    getMovementById,
+    updateMovement,
+    deleteMovement,
+    getInventoryMovementsReport
+} from "./movement.controller.js"
 
-const api = Router()
+import {
+    validateMovementType,
+    validateQuantity,
+    validateProductExists,
+    validateStockForOutput,
+    validateMovementDate
+} from "../../middlewares/validations.movement.js"
 
-api.post('/addMovement',
-    [
-        validateJWT,
-        validateAddMovement,
-        validateRoles('Admin', 'Employee')
-    ],
-addMovement)
+import { 
+    validateJWT, 
+    validateRoles 
+} from "../../middlewares/validate.jwt.js"
 
-api.get('/getMovements', 
-    [
-        validateJWT,
-        validateRoles('Admin', 'Employee')
-    ],
-getMovements)
+const  api = Router()
+
+api.post("/addMovement",
+  [
+    validateJWT,
+    validateRoles("Admin", "Empleado"), 
+    validateMovementType,
+    validateQuantity,
+    validateProductExists,
+    validateStockForOutput,
+    validateMovementDate
+  ],
+  addMovement
+)
+
+api.get("/getMovements",
+  [
+    validateJWT
+  ],
+  getMovements
+)
 
 api.get('/getInventoryMovementsReport', 
     [
@@ -27,18 +50,32 @@ api.get('/getInventoryMovementsReport',
     ],
 getInventoryMovementsReport)
 
-api.put('/updateMovement/:id', 
-    [
-        validateJWT,
-        validateRoles('Admin', 'Employee')
-    ],
-updateMovement)
+api.get("/getMovement/:id",
+  [
+    validateJWT
+  ],
+  getMovementById
+)
 
-api.delete('/deleteMovement/:id', 
+api.put("/updateMovement/:id",
+  [
+    validateJWT,
+    validateRoles("Admin"),
+    validateMovementType,
+    validateQuantity,
+    validateProductExists,
+    validateStockForOutput,
+    validateMovementDate
+  ],
+  updateMovement
+)
+
+api.delete("/deleteMovement/:id",
     [
         validateJWT,
-        validateRoles('Admin')
+        validateRoles("Admin")
     ],
-deleteMovement)
+    deleteMovement
+)
 
 export default api

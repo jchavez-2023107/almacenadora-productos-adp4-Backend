@@ -23,7 +23,7 @@ const productSchema = Schema(
         },
         dateDelivery: {
             type: Date,
-            required: true
+            required: false
         },
         expirationDate: {
             type: Date,
