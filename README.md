@@ -48,3 +48,53 @@ Aplicación web Full-Stack MERN para gestionar el inventario de una almacenadora
    git clone <URL del repo backend>
    cd almacenadora-backend
    git checkout develop
+
+
+- **POSTMAN DE MI PARTE**
+
+- **CLIENT**
+
+1. POST: localhost:2636/api/client
+
+{
+  "name": "María López",
+  "contact": "marialopez@gmail.com",
+  "company": "Tech Corp",
+  "product": "Almacenamiento frío"
+}
+
+2. GET: localhost:2636/api/client
+
+3. UPDATE localhost:2636/api/client/{id}
+
+{
+  "name": "María De Jesus"
+}
+
+4. Delete: localhost:2636/api/client/{id}
+
+
+- **SUPPLIERS**
+
+1. POST: localhost:2636/api/suppliers
+
+{
+  "name": "Tech Solutions SA",
+  "adress": "Av. Siempre Viva 123, Lima, Perú",
+  "email": "contacto@techsolutions.com",
+  "phone": "+502 98765432"
+}
+
+2. GET: localhost:2636/api/suppliers
+
+3. PUT: localhost:2636/api/suppliers/{id}
+
+{
+  "name": "Alamcenadora 404 Not Found", 
+  "phone": "+502 98765238"
+}
+
+4. DELETE localhost:2636/api/suppliers/{id}
+
+
+

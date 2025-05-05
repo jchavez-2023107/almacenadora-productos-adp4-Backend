@@ -62,8 +62,7 @@ export const registerUser = async (req, res) => {
       error: error.message 
     });
   }
-};
-
+}
 /**
  * Iniciar sesión con email o username
  * - Verifica credenciales y genera un token JWT válido por 3 horas.

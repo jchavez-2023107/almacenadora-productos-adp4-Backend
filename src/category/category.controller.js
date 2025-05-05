@@ -13,7 +13,7 @@ export const addCategory = async(req, res) =>{
     }
 }
 
-export const getCategorys = async(req, res) =>{
+export const getCategories = async(req, res) =>{
     try{
         const {limit = 20, skip = 0} = req.query
         const category = await Category.find()
@@ -41,7 +41,7 @@ export const getCategorys = async(req, res) =>{
     }
 }
 
-export const updateCat = async(req, res) =>{
+export const updateCategory = async(req, res) =>{
     try{
         const {id} = req.params
         const data = req.body
@@ -71,7 +71,7 @@ export const updateCat = async(req, res) =>{
     }
 }
 
-export const deleteCat = async(req, res) =>{
+export const deleteCategory = async(req, res) =>{
     try{
         let {id} = req.params
 

@@ -46,7 +46,17 @@ const defaultProducts = [
         dateDelivery: new Date('2023-12-08'),
         supplier: new mongoose.Types.ObjectId(), 
         category: new mongoose.Types.ObjectId()  
-    }
+    },
+    {
+        name: "Paletas de Chocolate Magnum",
+        price: "12.00",
+        description: "Paletas de crema con cobertura sabor chocolate",
+        stock: "100",
+        dateDelivery: new Date('2025-04-08'),
+        expirationDate: new Date('2025-05-03'),
+        supplier: new mongoose.Types.ObjectId(), 
+        category: new mongoose.Types.ObjectId()  
+    }    
 ]
 
 export const createDefaultProducts = async () => {

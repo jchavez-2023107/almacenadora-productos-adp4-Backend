@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose"
 
 const ROLES = ["Admin", "Employee", "CLIENT"];
 
-const userSchema = new mongoose.Schema({
+const userSchema = Schema({
   name: {
     type: String,
     required: [true, "El nombre es obligatorio"],
@@ -51,10 +51,4 @@ const userSchema = new mongoose.Schema({
 
 // **Eliminamos** el hook pre('save') para no re-hashear aquí.
 // Porque el hashing ya lo hacemos en utils/encrypt.js antes de construir el User.
-
-userSchema.methods.comparePassword = async function (candidate) {
-  const { verify } = await import("argon2");
-  return verify(this.password, candidate);
-};
-
-export default mongoose.model("User", userSchema);
+export default model ('User', userSchema)

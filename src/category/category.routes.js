@@ -1,12 +1,35 @@
 import { Router } from "express"
-import { validateJWT, isAdmin } from "../../middlewares/validate.jwt.js"
-import { addCategory, deleteCat, getCategorys, updateCat } from "./category.controller.js"
+import { validateJWT, validateRoles} from "../../middlewares/validate.jwt.js"
+import { addCategory, deleteCategory, getCategories, updateCategory } from "./category.controller.js"
 
 const api = Router()
 
-api.post('/addCategory', [validateJWT, isAdmin], addCategory)
-api.get('/getCategorys', [validateJWT, isAdmin], getCategorys)
-api.put('/updateCat/:id', [validateJWT, isAdmin], updateCat)
-api.delete('/deleteCat/:id', [validateJWT, isAdmin], deleteCat)
+api.post('/addCategory', 
+    [
+        validateJWT, 
+        validateRoles('Admin')
+    ], 
+addCategory)
+
+api.get('/getCategories', 
+    [
+        validateJWT, 
+        validateRoles('Admin')
+    ], 
+getCategories)
+
+api.put('/updateCategory/:id', 
+    [
+        validateJWT, 
+        validateRoles('Admin')
+    ], 
+updateCategory)
+
+api.delete('/deleteCategory/:id',
+    [
+        validateJWT, 
+        validateRoles('Admin')
+    ], 
+deleteCategory)
 
 export default api

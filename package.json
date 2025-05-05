@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/jchavez-2023107/almacenadora-productos-adp4-Backend#readme",
   "dependencies": {
+    "almacenadora-productos-adp4": "file:",
     "argon2": "^0.43.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",

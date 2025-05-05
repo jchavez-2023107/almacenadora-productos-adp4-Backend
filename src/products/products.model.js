@@ -18,12 +18,21 @@ const productSchema = Schema(
             required: true
         },
         stock: {
-            type: String,
+            type: Number,
             required: true
         },
         dateDelivery: {
             type: Date,
-            required: true
+            required: false
+        },
+        expirationDate: {
+            type: Date,
+            required: false
+        },
+        note: { //Para dejar una nota del motivo del porque se quiere agregar o quitar un producto
+            type: String,
+            maxLength: 250,
+            required: false
         },
         supplier: {
             type: Schema.Types.ObjectId,
