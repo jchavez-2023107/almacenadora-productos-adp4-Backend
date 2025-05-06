@@ -17,4 +17,5 @@ export const rutasGenerales = (app) => {
   app.use('/api/suppliers', supplierRoutes)
   app.use('/api/categorys', categoryRoutes)
   app.use('/api/client',clientRoutes)
+  app.use('/almacenadora404/v1/auth', authRoutes)
 }
